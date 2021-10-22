@@ -21,6 +21,14 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./**/*.js",
+    "./**/*.jsx",
+    "./.eslintrc.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "public"
   ]
 }
