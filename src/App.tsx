@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import AppRouter from './features/AppRouter'
+import { store } from './library/store/configureStore'
+import { Provider } from 'react-redux'
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from './library/styles/chakraConfig'
+
+console.log(theme)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Provider store={store}>
+        <ChakraProvider theme={theme}>
+          <AppRouter />
+        </ChakraProvider>
+      </Provider>
+    </>
+  )
 }
 
-export default App;
+export default App
