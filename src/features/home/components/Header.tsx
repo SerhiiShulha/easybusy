@@ -2,9 +2,10 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Col, Container, Hidden, Row, Visible } from 'react-grid-system'
 import headerBg from '../../../assets/images/pages/home/header-bg@2x.png'
-import InlineSearchForm from '../../../library/components/inlineSearchForm/inlineSearchForm'
+import InlineSearchForm from '../../../library/components/searchForm/inlineSearchForm'
 import { mq } from '../../../library/constants/styles'
 import { css } from '@emotion/css'
+import sunIcon from '../../../assets/images/pages/home/sun.svg'
 
 const HeaderContainer = styled.header`
   width: 100vw;
@@ -17,6 +18,11 @@ const HeaderContainer = styled.header`
     height: auto;
     min-height: 100vh;
   }
+`
+
+const TitleContainer = styled.div`
+  position: relative;
+  width: 100%;
 `
 
 const Title = styled.h1`
@@ -34,15 +40,20 @@ const Title = styled.h1`
   }
 `
 
+const SunIcon = styled.img`
+  position: absolute;
+  transform: translate(-80%, -80%);
+`
+
 const Header = () => {
   return (
     <HeaderContainer>
       <Container
-      // className={css`
-      //   ${mq.xs} {
-      //     padding: 0;
-      //   }
-      // `}
+        className={css`
+          ${mq.xs} {
+            padding: 0;
+          }
+        `}
       >
         <Row>
           <Col
@@ -54,18 +65,23 @@ const Header = () => {
               }
             `}
           >
-            <Title>
-              Summer and winter camps organized{' '}
-              <Visible xs>
-                <br />
-              </Visible>{' '}
-              for children
-            </Title>
+            <TitleContainer>
+              <Hidden sm xs>
+                <SunIcon src={sunIcon} title={''} />
+              </Hidden>
+              <Title>
+                Summer and winter camps organized{' '}
+                <Visible xs>
+                  <br />
+                </Visible>{' '}
+                for children
+              </Title>
+            </TitleContainer>
           </Col>
         </Row>
-        <Hidden xs>
-          <InlineSearchForm />
-        </Hidden>
+        {/*<Hidden xs>*/}
+        {/*  <InlineSearchForm />*/}
+        {/*</Hidden>*/}
       </Container>
     </HeaderContainer>
   )

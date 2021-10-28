@@ -1,9 +1,11 @@
+import './library/yupConfig'
+
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import './library/styles/index.scss'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import './library/yupConfig'
+
 import './library/i18n'
 import { setConfiguration } from 'react-grid-system'
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import logoLight from '../../../../assets/images/logo-light.svg'
 import logo from '../../../../assets/images/logo.svg'
@@ -9,7 +9,7 @@ import { Flex, Link, Slide, useDisclosure } from '@chakra-ui/react'
 import { colors, mq } from '../../../constants/styles'
 import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'
 
-const NavContainer = styled.nav`
+const Nav = styled.nav`
   position: absolute;
   width: 100%;
   padding-top: 2rem;
@@ -48,7 +48,7 @@ const MobileMenuContainer = styled.div`
   background-color: #fff;
 `
 
-const MobileLink = styled(RouterLink)`
+export const MobileNavLink = styled(RouterLink)`
   display: block;
   margin-left: 2rem;
   font-size: 2rem;
@@ -59,7 +59,10 @@ const MobileLink = styled(RouterLink)`
   }
 `
 
-const MobileMenu: React.FC<{ setIsOpen: () => void }> = ({ setIsOpen }) => {
+const MobileMenu: React.FC<{
+  setIsOpen: () => void
+  content: React.ReactNode
+}> = ({ content, setIsOpen }) => {
   return (
     <MobileMenuContainer>
       <Flex justify={'space-between'} className={'mb-28'}>
@@ -68,17 +71,15 @@ const MobileMenu: React.FC<{ setIsOpen: () => void }> = ({ setIsOpen }) => {
           <HiX />
         </MenuButton>
       </Flex>
-      <MobileLink to={'/sign-in'} onClick={setIsOpen}>
-        Sign In
-      </MobileLink>
-      <MobileLink to={'/sign-up'} onClick={setIsOpen}>
-        Sign Up
-      </MobileLink>
+      {content}
     </MobileMenuContainer>
   )
 }
 
-const Nav: React.FC = () => {
+const NavContainer: React.FC<{ mobileMenu: React.ReactNode }> = ({
+  mobileMenu,
+  children,
+}) => {
   const { isOpen, onToggle } = useDisclosure()
 
   const location = useLocation()
@@ -88,64 +89,12 @@ const Nav: React.FC = () => {
     return onToggle()
   }
 
-  const composeContent = () => {
-    switch (location.pathname) {
-      case '/sign-in':
-        return (
-          <div className={'flex items-center space-x-4'}>
-            <span className={'mr-6'} style={{ fontSize: '1.4rem' }}>
-              Don’t have an account yet?
-            </span>
-            <Link
-              as={RouterLink}
-              variant={'outline'}
-              size={'m'}
-              to={'/sign-up'}
-            >
-              Sign Up
-            </Link>
-          </div>
-        )
-
-      case '/sign-up':
-        return (
-          <div className={'flex items-center space-x-4'}>
-            <span className={'mr-6'} style={{ fontSize: '1.4rem' }}>
-              Already have an account?
-            </span>
-            <Link
-              as={RouterLink}
-              variant={'outline'}
-              size={'m'}
-              to={'/sign-in'}
-            >
-              Sign In
-            </Link>
-          </div>
-        )
-
-      default:
-        return (
-          <div className={'flex items-center space-x-4'}>
-            <Link as={RouterLink} size={'m'} to={'/sign-up'}>
-              Become an Organizer
-            </Link>
-            <Link
-              as={RouterLink}
-              variant={'outline'}
-              size={'m'}
-              to={'/sign-in'}
-              colorScheme={location.pathname === '/' ? 'white' : undefined}
-            >
-              Sign In
-            </Link>
-          </div>
-        )
-    }
-  }
+  useEffect(() => {
+    if (isOpen) toggleMenu()
+  }, [location.pathname])
 
   return (
-    <NavContainer>
+    <Nav>
       <Container>
         <NavContent>
           <RouterLink to={'/'}>
@@ -154,7 +103,7 @@ const Nav: React.FC = () => {
               title={'EasyBusy'}
             />
           </RouterLink>
-          <Hidden xs>{composeContent()}</Hidden>
+          {children}
           <Visible xs>
             <MenuButton onClick={toggleMenu}>
               <HiOutlineMenuAlt4 />
@@ -164,11 +113,11 @@ const Nav: React.FC = () => {
       </Container>
       <Visible xs>
         <Slide direction="top" in={isOpen} style={{ zIndex: 1000 }}>
-          <MobileMenu setIsOpen={toggleMenu} />
+          <MobileMenu content={mobileMenu} setIsOpen={toggleMenu} />
         </Slide>
       </Visible>
-    </NavContainer>
+    </Nav>
   )
 }
 
-export default Nav
+export default NavContainer

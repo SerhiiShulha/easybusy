@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col, Container, Row } from 'react-grid-system'
 import { SectionTitle } from '../../../../library/components/typography/typography'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,6 +12,7 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
 import sectionBg from '../../../../assets/images/pages/home/testimonials-bg.png'
 import quotes from '../../../../assets/images/pages/home/quotes.svg'
 import { useGetTestimonialsQuery } from '../../homeAPI'
+import axios from 'axios'
 
 SwiperCore.use([Navigation, Pagination])
 

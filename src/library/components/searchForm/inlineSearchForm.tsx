@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import Button from '../inputs/buttons/Button'
 import { FiSliders } from 'react-icons/all'
 import locationIcon from '../../../assets/images/icons/location.svg'
 import inIcon from '../../../assets/images/icons/in.svg'
 import outIcon from '../../../assets/images/icons/out.svg'
 import dollarIcon from '../../../assets/images/icons/dollar.svg'
 import { colors } from '../../constants/styles'
+import { Button, useDisclosure } from '@chakra-ui/react'
+import AdvancedSearchModal from './advancedSearchModal'
 
 const Container = styled.div<{ compact: boolean }>`
   display: flex;
@@ -87,6 +88,9 @@ interface Props {
 }
 
 const InlineSearchForm: React.FC<Props> = ({ compact = false }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Container compact={compact}>
@@ -116,15 +120,19 @@ const InlineSearchForm: React.FC<Props> = ({ compact = false }) => {
             </div>
           </FilterBlock>
         </FiltersContainer>
-        <Button onClick={() => console.log('fsdf')}>Search</Button>
+        <Button size={'m'} onClick={() => console.log('fsdf')}>
+          Search
+        </Button>
       </Container>
       {!compact && (
         <div className={'flex justify-end pr-10'}>
-          <AdvancedSearchBtn onClick={() => console.log('vcbcxvbxcvb')}>
+          <AdvancedSearchBtn onClick={onOpen}>
             <span>Advanced Search </span> <FiSliders />
           </AdvancedSearchBtn>
         </div>
       )}
+      {isOpen && <AdvancedSearchModal isOpen={isOpen} onClose={onClose} />}
+      {/*<AdvancedSearchModal isOpen={true} onClose={onClose} />*/}
     </>
   )
 }

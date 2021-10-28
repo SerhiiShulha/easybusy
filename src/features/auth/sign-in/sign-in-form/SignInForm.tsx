@@ -2,9 +2,10 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import TextField from '../../../../library/components/inputs/textField/TextField'
-import { Button } from '@chakra-ui/react'
+import { Button, Flex, useToast } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { Link } from '@chakra-ui/react'
+import updateToken from '../../../../library/utils/networking/token'
 
 interface FormValues {
   email: string
@@ -22,16 +23,45 @@ const validationSchema = Yup.object({
 })
 
 const SignInForm: React.FC = () => {
+  const toast = useToast()
+
   const initialValues: FormValues = {
     email: '',
     password: '',
   }
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     try {
-      console.log(values)
+      const response = await fetch(
+        'https://easybusycamp.herokuapp.com/rest/user/authenticate',
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        }
+      )
+      const data = await response.json()
+
+      console.log('response:', response)
+
+      if (response.status === 404) {
+        return toast({
+          title: 'User not found',
+          position: 'bottom-left',
+          status: 'error',
+        })
+      }
+
+      return toast({
+        title: 'Successful Sign In',
+        position: 'bottom-left',
+        description: `Hello, ${data.name}`,
+        status: 'success',
+      })
     } catch (e) {
-      console.error(e)
+      console.error('error', e)
     }
   }
 
@@ -40,6 +70,7 @@ const SignInForm: React.FC = () => {
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
+      validateOnMount
     >
       {(fk) => (
         <Form>
@@ -55,19 +86,20 @@ const SignInForm: React.FC = () => {
             type={'password'}
             mb={'5rem'}
           />
-          <Button isFullWidth type={'submit'} className={'mb-10'}>
+          <Button
+            type={'submit'}
+            isDisabled={!fk.isValid}
+            isFullWidth
+            className={'mb-8 sm:mb-10'}
+          >
             Sign In
           </Button>
 
-          <Link
-            variant={'text'}
-            size={'text'}
-            to={''}
-            as={RouterLink}
-            className={'mb-10 flex'}
-          >
-            Forgot Password?
-          </Link>
+          <Flex justify={'center'}>
+            <Link variant={'text'} size={'text'} to={'/'} as={RouterLink}>
+              Forgot Password?
+            </Link>
+          </Flex>
         </Form>
       )}
     </Formik>

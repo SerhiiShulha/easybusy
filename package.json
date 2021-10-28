@@ -54,7 +54,8 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
+    "deploy": "yarn run build && firebase deploy"
   },
   "browserslist": {
     "production": [
