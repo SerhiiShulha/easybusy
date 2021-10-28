@@ -8,7 +8,6 @@ import { css } from '@emotion/css'
 import sunIcon from '../../../assets/images/pages/home/sun.svg'
 
 const HeaderContainer = styled.header`
-  width: 100vw;
   height: 60rem;
   background-image: url(${headerBg});
   background-size: cover;
@@ -49,11 +48,11 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Container
-        className={css`
-          ${mq.xs} {
-            padding: 0;
-          }
-        `}
+      // className={css`
+      //   ${mq.xs} {
+      //     padding: 0;
+      //   }
+      // `}
       >
         <Row>
           <Col
