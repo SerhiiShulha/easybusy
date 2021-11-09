@@ -13,6 +13,7 @@ import { Divider, Flex } from '@chakra-ui/react'
 import { Text } from '../../typography/typography'
 import { useSelector } from 'react-redux'
 import { colors } from '../../../constants/styles'
+import ErrorBoundary from '../../errorBoundary/ErrorBoundary'
 
 const MobileMenuItems = () => {
   const { userName, userPhoto } = useSelector(({ user }) => {
@@ -46,7 +47,9 @@ const NavAuthorized = () => {
   return (
     <NavContainer mobileMenu={<MobileMenuItems />}>
       <Hidden xs>
-        <ProfileNavDropdown />
+        <ErrorBoundary>
+          <ProfileNavDropdown />
+        </ErrorBoundary>
       </Hidden>
     </NavContainer>
   )
