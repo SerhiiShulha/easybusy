@@ -68,7 +68,7 @@ const SliderField = (props) => {
         >
           <NumberInputField />
         </NumberInput>
-        <Visible md>
+        <Visible md lg xl>
           <span className={'ml-4 mr-4'}>-</span>
         </Visible>
         <NumberInput

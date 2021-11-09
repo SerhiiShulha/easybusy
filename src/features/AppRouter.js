@@ -45,40 +45,42 @@ const AppRouter = () => {
     <PageContainer>
       <BrowserRouter>
         {!isAuthorized ? <NavNotAuthorized /> : <NavAuthorized />}
-        <Switch>
-          <Route exact path={BASE}>
-            <Home />
-          </Route>
+        <div>
+          <Switch>
+            <Route exact path={BASE}>
+              <Home />
+            </Route>
 
-          <Route exact path={SIGN_IN}>
-            <SignInPage />
-          </Route>
-          <Route exact path={SIGN_UP}>
-            <SignUpPage />
-          </Route>
-          <Route exact path={SIGN_UP_2}>
-            <SignUpStep2Page />
-          </Route>
+            <Route exact path={SIGN_IN}>
+              <SignInPage />
+            </Route>
+            <Route exact path={SIGN_UP}>
+              <SignUpPage />
+            </Route>
+            <Route exact path={SIGN_UP_2}>
+              <SignUpStep2Page />
+            </Route>
 
-          <Route exact path={'/search'}>
-            <CampsSearchPage />
-          </Route>
+            <Route exact path={'/search'}>
+              <CampsSearchPage />
+            </Route>
 
-          <PrivateRoute
-            path={[
-              PROFILE_SETTINGS,
-              CHILDREN_ENROLLMENT,
-              CALENDAR,
-              POSTED_CAMPS,
-              CHILDREN_LIST,
-            ]}
-          >
-            <ProfilePage />
-          </PrivateRoute>
-          <Route path={'*'}>
-            <PageNotFound />
-          </Route>
-        </Switch>
+            <PrivateRoute
+              path={[
+                PROFILE_SETTINGS,
+                CHILDREN_ENROLLMENT,
+                CALENDAR,
+                POSTED_CAMPS,
+                CHILDREN_LIST,
+              ]}
+            >
+              <ProfilePage />
+            </PrivateRoute>
+            <Route path={'*'}>
+              <PageNotFound />
+            </Route>
+          </Switch>
+        </div>
         <Footer />
       </BrowserRouter>
     </PageContainer>
