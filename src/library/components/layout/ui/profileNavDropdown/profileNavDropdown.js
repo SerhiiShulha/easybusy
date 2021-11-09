@@ -97,8 +97,8 @@ const ProfileNavDropdown = () => {
   const location = useLocation()
   const { userName, userPhoto } = useSelector(({ user }) => {
     return {
-      userName: user.data.firstName + ' ' + user.data.lastName,
-      userPhoto: user.data.photo,
+      userName: user.data?.firstName + ' ' + user.data?.lastName,
+      userPhoto: user.data?.photo,
     }
   })
 

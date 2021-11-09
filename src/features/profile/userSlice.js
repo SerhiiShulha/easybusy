@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PURGE } from 'redux-persist'
 
 const getCurrentUser = createAsyncThunk(
   'user/get',
@@ -66,7 +67,7 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: initialState,
+  initialState,
   extraReducers: (builder) => {
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.data = action.payload
@@ -74,6 +75,7 @@ export const userSlice = createSlice({
     builder.addCase(updateCurrentUser.fulfilled, (state, action) => {
       state.data = action.payload
     })
+    builder.addCase(PURGE, () => initialState)
   },
 })
 

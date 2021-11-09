@@ -36,17 +36,17 @@ const ProfileSettings = () => {
   const { data: userData } = useSelector(({ user }) => user)
 
   const initialValues = {
-    firstName: userData.firstName || '',
-    lastName: userData.lastName || '',
-    businessName: userData.businessName || '',
-    mobile: userData.mobile || '',
-    homePhone: userData.homePhone || '',
-    addressLine1: userData.addressLine1 || '',
-    addressLine2: userData.addressLine2 || '',
+    firstName: userData?.firstName || '',
+    lastName: userData?.lastName || '',
+    businessName: userData?.businessName || '',
+    mobile: userData?.mobile || '',
+    homePhone: userData?.homePhone || '',
+    addressLine1: userData?.addressLine1 || '',
+    addressLine2: userData?.addressLine2 || '',
     city: null,
     state: null,
-    pincode: userData.pincode || '',
-    email: userData.email || '',
+    pincode: userData?.pincode || '',
+    email: userData?.email || '',
   }
 
   const [cities, setCities] = useState([])

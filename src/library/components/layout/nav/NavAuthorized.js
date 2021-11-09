@@ -47,9 +47,9 @@ const NavAuthorized = () => {
   return (
     <NavContainer mobileMenu={<MobileMenuItems />}>
       <Hidden xs>
-        <ErrorBoundary>
-          <ProfileNavDropdown />
-        </ErrorBoundary>
+        {/*<ErrorBoundary>*/}
+        <ProfileNavDropdown />
+        {/*</ErrorBoundary>*/}
       </Hidden>
     </NavContainer>
   )
