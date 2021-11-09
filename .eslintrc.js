@@ -1,27 +1,21 @@
 module.exports = {
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
-    'plugin:prettier/recommended',
-  ],
-  plugins: ['react', '@typescript-eslint', 'jest'],
+  extends: ['plugin:jest/recommended', 'plugin:prettier/recommended'],
+  plugins: ['react', 'jest'],
   env: {
     browser: true,
-    es6: true,
+    es2021: true,
     jest: true,
   },
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2019,
+    ecmaVersion: 12,
     sourceType: 'module',
-    project: './tsconfig.json',
   },
   rules: {
     'prettier/prettier': [

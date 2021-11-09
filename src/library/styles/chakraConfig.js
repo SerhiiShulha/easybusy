@@ -58,6 +58,9 @@ export const theme = extendTheme({
         color: 'text.100',
         fontWeight: 500,
       },
+      body: {
+        minHeight: '100vh',
+      },
     },
   },
   components: {
@@ -96,8 +99,19 @@ export const theme = extendTheme({
           fontSize: '16px',
           borderColor: 'text.100',
           _hover: {
-            bg: 'primary.10',
-            borderColor: 'primary.100',
+            bg: 'hover',
+            borderColor: 'hover',
+          },
+        },
+        action: {
+          fontWeight: 600,
+          fontSize: '16px',
+          border: '1px solid',
+          borderColor: 'rgba(44, 66, 81, 0.1)',
+          _hover: {
+            color: 'white',
+            bg: 'hover',
+            borderColor: 'hover',
           },
         },
       },
@@ -189,6 +203,12 @@ export const theme = extendTheme({
             border: '1px solid',
           },
         },
+        inline: {
+          field: {
+            border: 0,
+            py: '3px',
+          },
+        },
       },
       variants: {
         filled: {
@@ -237,12 +257,9 @@ export const theme = extendTheme({
         },
         footer: {
           display: 'block',
-          p: '4rem 3rem 9rem',
+          p: '4rem 3rem 6rem',
         },
       }),
-      sizes: {
-        'fit-container': {},
-      },
     },
     NumberInput: {
       baseStyle: {
@@ -262,6 +279,12 @@ export const theme = extendTheme({
             fontSize: '14px',
             p: '15px',
             border: '1px solid',
+          },
+        },
+        inline: {
+          field: {
+            border: 0,
+            py: '3px',
           },
         },
       },
@@ -331,6 +354,37 @@ export const theme = extendTheme({
           fontWeight: 400,
           marginTop: '1rem',
           fontSize: '1.4rem',
+        },
+      },
+    },
+    Editable: {
+      baseStyle: {
+        preview: {
+          color: 'text.60',
+        },
+      },
+    },
+    Menu: {
+      baseStyle: {
+        list: {
+          width: '27rem',
+          py: '1rem',
+          borderRadius: '0.8rem',
+          border: 0,
+          boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.1)',
+        },
+        item: {
+          py: '1rem',
+          px: '2.5rem',
+          fontWeight: 500,
+          transition: '0.2s all',
+
+          _hover: {
+            background: '#f5f5f5',
+          },
+        },
+        divider: {
+          borderColor: 'rgba(0, 0, 0, 0.1)',
         },
       },
     },
