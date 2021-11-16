@@ -1,9 +1,11 @@
 import React from 'react'
 import { SettingsPageTitle } from '../../../../library/components/typography/typography'
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, Link } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { Col, Row } from 'react-grid-system'
 import CampCard from '../../../../library/components/layout/listItems/campCard/CampCard'
 import PostedCampCard from '../../../../library/components/layout/listItems/campCard/postedCampCard'
+import { CAMP_CREATE } from '../../../../library/constants/routes'
 
 const PostedCamps = () => {
   return (
@@ -15,13 +17,9 @@ const PostedCamps = () => {
         className={'mb-24'}
       >
         <SettingsPageTitle>Posted Camps</SettingsPageTitle>
-        <Button
-          size={'m'}
-          variant={'action'}
-          onClick={() => alert('create camp')}
-        >
+        <Link as={RouterLink} to={CAMP_CREATE} size={'m'} variant={'action'}>
           + Create New Camp
-        </Button>
+        </Link>
       </Flex>
       <Row>
         <Col md={4}>

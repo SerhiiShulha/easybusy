@@ -36,9 +36,6 @@ const NavNotAuthorized = () => {
             >
               Sign In
             </Link>
-            {/*<Link as={RouterLink} size={'m'} to={'/user'}>*/}
-            {/*  User Page*/}
-            {/*</Link>*/}
           </div>
         )
 
@@ -77,7 +74,22 @@ const NavNotAuthorized = () => {
         )
 
       default:
-        return null
+        return (
+          <div className={'flex items-center space-x-4'}>
+            <Link as={RouterLink} size={'m'} to={'/sign-up'}>
+              Sign Up
+            </Link>
+            <Link
+              as={RouterLink}
+              variant={'outline'}
+              size={'m'}
+              to={'/sign-in'}
+              colorScheme={location.pathname === '/' ? 'white' : undefined}
+            >
+              Sign In
+            </Link>
+          </div>
+        )
     }
   }
   return (

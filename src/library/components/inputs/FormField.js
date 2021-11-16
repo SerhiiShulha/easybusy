@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { colors } from '../../constants/styles'
 
 export const Container = styled.div`
-  width: ${(props) => props.width || '100%'};
+  width: 100%;
   margin-bottom: ${(props) => props.mb || '2.5rem'};
 `
 
@@ -24,7 +24,6 @@ export const ErrorMessage = styled.span`
 const FormField = ({
   label,
   name,
-  inputWidth,
   mb,
   error,
   touched,
@@ -32,7 +31,7 @@ const FormField = ({
   children,
 }) => {
   return (
-    <Container width={inputWidth} mb={mb} className={className}>
+    <Container mb={mb} className={className}>
       <Label htmlFor={name}>{label}</Label>
       {children}
       {Boolean(error) && touched && <ErrorMessage>{error}</ErrorMessage>}

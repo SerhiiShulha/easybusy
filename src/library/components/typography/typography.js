@@ -2,10 +2,14 @@ import styled from '@emotion/styled'
 import { colors, mq } from '../../constants/styles'
 
 export const Text = styled.p`
-  color: ${(props) => props.color || colors.text};
+  color: ${(props) => props.color || 'inherit'};
   font-size: ${(props) => props.size || '16px'};
   font-weight: ${(props) => props.weight || 500};
   line-height: ${(props) => props.lineHeight || 1.4};
+  margin-bottom: ${(props) => props.mb || 0};
+  margin-top: ${(props) => props.mt || 0};
+  font-family: 'Inter', sans-serif;
+  text-align: ${(props) => props.align || 'left'};
 `
 
 export const SectionTitle = styled.h3`

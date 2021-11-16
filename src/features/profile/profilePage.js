@@ -17,7 +17,7 @@ import Calendar from './subpages/calendar/calendar'
 
 const PageContainer = styled.div`
   width: 100%;
-  padding-top: 17rem;
+  padding-top: 7rem;
   margin-bottom: 15rem;
 `
 

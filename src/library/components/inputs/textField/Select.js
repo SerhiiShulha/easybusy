@@ -73,7 +73,6 @@ const SingleSelect = ({
   isDisabled = false,
   afterChange,
   mb,
-  inputWidth,
   className,
   ...inputProps
 }) => {
@@ -92,7 +91,6 @@ const SingleSelect = ({
       touched={meta.touched}
       mb={mb}
       error={meta.error}
-      inputWidth={inputWidth}
       className={className}
     >
       <Select

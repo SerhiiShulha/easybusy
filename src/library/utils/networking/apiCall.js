@@ -1,42 +1,56 @@
+import { toast } from 'react-toastify'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getToken } from './token'
 
-export const apiCall = async ({
+export const Thunk = ({
+  key,
   method = 'GET',
-  url,
-  body = {},
-  isProtected = false,
+  endpointConstructor,
+  withAuth = false,
+  afterSuccessResponse,
 }) => {
-  try {
-    const response = await fetch(
-      'https://easybusycamp.herokuapp.com/rest/' + url,
-      {
+  return createAsyncThunk(key, async (body, thunkAPI) => {
+    try {
+      console.log({
+        key,
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          // authentication: isProtected ? `Bearer ${getToken()}` : '',
-        },
-        body: JSON.stringify(body),
+        endpointConstructor,
+        withAuth,
+        afterSuccessResponse,
+        body,
+      })
+      const response = await fetch(
+        process.env.REACT_APP_API + endpointConstructor(body, thunkAPI),
+        {
+          method,
+          headers: !withAuth
+            ? {
+                'Content-Type': 'application/json',
+              }
+            : {
+                'Content-Type': 'application/json',
+                Authorization:
+                  body?.token || thunkAPI.getState().auth.token || '',
+              },
+          body: method !== 'GET' ? JSON.stringify(body) : undefined,
+        }
+      )
+
+      const data = await response.json()
+
+      console.log(data)
+      if (!response.ok) {
+        throw new Error(data.error)
       }
-    )
 
-    const data = await response.json()
+      if (afterSuccessResponse) {
+        await afterSuccessResponse(thunkAPI.dispatch, data)
+      }
 
-    if (!response.ok) {
-      throw new Error('OOOOPS')
+      return data
+    } catch (e) {
+      console.log(e)
+      toast.error(e.message)
+      return thunkAPI.rejectWithValue(e.message)
     }
-    return data
-  } catch (error) {
-    console.error(error)
-    return error
-  }
-
-  //
-  // if (response.status === 500) console.error('Server respond with status 500')
-  //
-  // if (response.ok) {
-  //   return data
-  // }
-  //
-  // throw 'ERRRRRRRRRORRRRRR'
+  })
 }

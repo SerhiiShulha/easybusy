@@ -4,14 +4,20 @@ import logoLight from '../../../../assets/images/logo-light.svg'
 import logo from '../../../../assets/images/logo.svg'
 import { useLocation, useRouteMatch } from 'react-router'
 import { Container, Hidden, Visible } from 'react-grid-system'
-import { Link as RouterLink } from 'react-router-dom'
+import { generatePath, Link as RouterLink } from 'react-router-dom'
 import { Flex, Link, Slide, useDisclosure } from '@chakra-ui/react'
 import { colors, mq } from '../../../constants/styles'
 import { HiOutlineMenuAlt4, HiX } from 'react-icons/hi'
-import { BASE, SIGN_IN, SIGN_UP, SIGN_UP_2 } from '../../../constants/routes'
+import {
+  BASE,
+  CAMP,
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_UP_2,
+} from '../../../constants/routes'
 
 const Nav = styled.nav`
-  position: absolute;
+  position: ${(props) => (props.filled ? 'relative' : 'absolute')};
   width: 100%;
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -99,9 +105,9 @@ const NavContainer = ({ mobileMenu, children }) => {
     <Nav filled={isFullWidth}>
       <Container fluid={isFullWidth}>
         <NavContent>
-          <RouterLink to={'/'}>
+          <RouterLink to={BASE}>
             <Logo
-              src={location.pathname === '/' ? logoLight : logo}
+              src={location.pathname === BASE ? logoLight : logo}
               title={'EasyBusy'}
             />
           </RouterLink>

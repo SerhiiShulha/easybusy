@@ -14,19 +14,11 @@ import CampsSearchPage from './campsSearch/CampsSearchPage'
 import { shallowEqual, useSelector } from 'react-redux'
 import { RootState } from '../library/store/configureStore'
 import ProfilePage from './profile/profilePage'
-import {
-  BASE,
-  CALENDAR,
-  CHILDREN_ENROLLMENT,
-  CHILDREN_LIST,
-  POSTED_CAMPS,
-  PROFILE_SETTINGS,
-  SIGN_IN,
-  SIGN_UP,
-  SIGN_UP_2,
-} from '../library/constants/routes'
+import * as routes from '../library/constants/routes'
 import Footer from '../library/components/layout/footer/Footer'
 import styled from '@emotion/styled'
+import CampPage from './camp/campPage'
+import CampFormPage from './camp/subpages/campFormPage'
 
 const PageContainer = styled.div`
   display: flex;
@@ -44,37 +36,45 @@ const AppRouter = () => {
   return (
     <PageContainer>
       <BrowserRouter>
-        {!isAuthorized ? <NavNotAuthorized /> : <NavAuthorized />}
         <div>
+          {!isAuthorized ? <NavNotAuthorized /> : <NavAuthorized />}
           <Switch>
-            <Route exact path={BASE}>
+            <Route exact path={routes.BASE}>
               <Home />
             </Route>
 
-            <Route exact path={SIGN_IN}>
+            <Route exact path={routes.SIGN_IN}>
               <SignInPage />
             </Route>
-            <Route exact path={SIGN_UP}>
+            <Route exact path={routes.SIGN_UP}>
               <SignUpPage />
             </Route>
-            <Route exact path={SIGN_UP_2}>
+            <Route exact path={routes.SIGN_UP_2}>
               <SignUpStep2Page />
             </Route>
 
-            <Route exact path={'/search'}>
+            <Route exact path={routes.CAMPS_SEARCH}>
               <CampsSearchPage />
+            </Route>
+
+            <Route exact path={routes.CAMP}>
+              <CampPage />
             </Route>
 
             <PrivateRoute
               path={[
-                PROFILE_SETTINGS,
-                CHILDREN_ENROLLMENT,
-                CALENDAR,
-                POSTED_CAMPS,
-                CHILDREN_LIST,
+                routes.PROFILE_SETTINGS,
+                routes.CHILDREN_ENROLLMENT,
+                routes.CALENDAR,
+                routes.POSTED_CAMPS,
+                routes.CHILDREN_LIST,
               ]}
             >
               <ProfilePage />
+            </PrivateRoute>
+
+            <PrivateRoute path={[routes.CAMP_CREATE, routes.CAMP_EDIT]}>
+              <CampFormPage />
             </PrivateRoute>
             <Route path={'*'}>
               <PageNotFound />

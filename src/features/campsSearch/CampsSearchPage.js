@@ -2,9 +2,6 @@ import React from 'react'
 import { useLocation } from 'react-router'
 
 const CampsSearchPage = () => {
-  const {
-    state: { location, startDate, endDate, maxPrice },
-  } = useLocation()
   return (
     <div className={'pt-16'}>
       <h3>Search</h3>

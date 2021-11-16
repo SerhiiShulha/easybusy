@@ -3,6 +3,8 @@ import { Flex } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { colors, mq } from '../../../../constants/styles'
 import { CampRating } from './CampCard'
+import { generatePath, Link } from 'react-router-dom'
+import { CAMP } from '../../../../constants/routes'
 
 const Container = styled.div`
   display: flex;
@@ -29,9 +31,14 @@ const InfoContainer = styled.div`
   padding: 1.5rem 2rem 2.5rem;
 `
 
-const Name = styled.p`
+const Name = styled(Link)`
   font-weight: 600;
   margin-bottom: 5px;
+  transition: 0.3s all;
+
+  &:hover {
+    color: ${colors.hover};
+  }
 `
 
 const Description = styled.p`
@@ -47,9 +54,11 @@ const Price = styled.span`
 const PostedCampCard = () => {
   return (
     <Container>
-      <Image src={'https://placeimg.com/640/480/arch'} title={'Camp name'} />
+      <Link to={generatePath(CAMP, { campId: 1 })}>
+        <Image src={'https://placeimg.com/640/480/arch'} title={'Camp name'} />
+      </Link>
       <InfoContainer>
-        <Name>Friends Summer Camp</Name>
+        <Name to={generatePath(CAMP, { campId: 1 })}>Friends Summer Camp</Name>
         <Description>Mont-Tremblant, Qc</Description>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <Price>$210/day</Price>

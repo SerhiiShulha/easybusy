@@ -12,6 +12,7 @@ export const colors = {
   input: '#f8f8f8',
   inputDisabled: '#fdfdfd',
   error: '#FF1D15',
+  hover: '#09B65F',
 }
 
 export const mq = {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import TextField from '../../../../library/components/inputs/textField/TextField'
@@ -20,6 +20,7 @@ const validationSchema = Yup.object({
 })
 
 const SignInForm = () => {
+  const [isLoading, setIsLoading] = useState()
   const dispatch = useDispatch()
 
   const initialValues = {
@@ -29,7 +30,9 @@ const SignInForm = () => {
 
   const onSubmit = async (values) => {
     try {
+      setIsLoading(true)
       await dispatch(signIn(values))
+      setIsLoading(false)
     } catch (e) {
       console.error('error', e)
     }
@@ -61,6 +64,8 @@ const SignInForm = () => {
             isDisabled={!fk.isValid}
             isFullWidth
             className={'mb-8 sm:mb-10'}
+            isLoading={isLoading}
+            loadingText="Submitting"
           >
             Sign In
           </Button>

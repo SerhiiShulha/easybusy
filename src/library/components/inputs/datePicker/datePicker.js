@@ -82,7 +82,7 @@ const DatePicker = ({
     onClose()
   }
 
-  const direction = useBreakpointValue({ base: 'vertical', md: 'horizontal' })
+  // const direction = useBreakpointValue({ base: 'vertical', md: 'horizontal' })
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={'lg'} variant={'datepicker'}>
@@ -102,7 +102,8 @@ const DatePicker = ({
               retainEndDateOnFirstSelection={false}
               months={2}
               ranges={state}
-              direction={direction}
+              // direction={direction}
+              direction={'horizontal'}
               minDate={new Date()}
               maxDate={addYears(new Date(), 10)}
               color={'#e6e6e6'}

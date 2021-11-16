@@ -17,7 +17,7 @@ import {
 import styled from '@emotion/styled'
 import { colors } from '../../../../constants/styles'
 import { Link, useLocation, useRouteMatch } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../../../../features/auth/authSlice'
 import {
   BASE,
@@ -51,12 +51,18 @@ const UserAvatarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.8rem;
+  margin-right: ${(props) => props.mr || '0.8rem'};
   border-radius: 50%;
-  height: 3.4rem;
-  width: 3.4rem;
+  height: ${(props) => props.size || '3.4rem'};
+  width: ${(props) => props.size || '3.4rem'};
   background-color: #eaeeec;
   color: #838383;
+  overflow: hidden;
+
+  img {
+    height: ${(props) => props.size || '3.4rem'};
+    width: ${(props) => props.size || '3.4rem'};
+  }
 `
 
 const UserAvatarPhoto = styled.img`
@@ -74,10 +80,14 @@ const CurrentValue = styled.div`
   }
 `
 
-export const UserAvatar = ({ userPhoto }) => {
+export const UserAvatar = ({ size, mr, userPhoto }) => {
   return (
-    <UserAvatarContainer>
-      {userPhoto ? <UserAvatarPhoto src={userPhoto} /> : <FaRegUser />}
+    <UserAvatarContainer size={size} mr={mr}>
+      {userPhoto ? (
+        <UserAvatarPhoto src={`data:image/jpeg;base64,${userPhoto}`} />
+      ) : (
+        <FaRegUser style={{ fontSize: `calc(${size} * 0.4)` }} />
+      )}
     </UserAvatarContainer>
   )
 }
@@ -100,7 +110,7 @@ const ProfileNavDropdown = () => {
       userName: user.data?.firstName + ' ' + user.data?.lastName,
       userPhoto: user.data?.photo,
     }
-  })
+  }, shallowEqual)
 
   const handleSignOut = () => {
     dispatch(signOut())

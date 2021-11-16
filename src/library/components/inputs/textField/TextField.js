@@ -3,7 +3,7 @@ import { useField } from 'formik'
 import { Input } from '@chakra-ui/react'
 import FormField from '../FormField'
 
-const TextField = ({ label, inputWidth, mb, className, ...inputProps }) => {
+const TextField = ({ label, mb, className, ...inputProps }) => {
   const [field, meta] = useField(inputProps.name)
 
   return (
@@ -13,7 +13,6 @@ const TextField = ({ label, inputWidth, mb, className, ...inputProps }) => {
       touched={meta.touched}
       mb={mb}
       error={meta.error}
-      inputWidth={inputWidth}
       className={className}
     >
       <Input

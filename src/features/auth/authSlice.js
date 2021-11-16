@@ -1,43 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import updateToken, { deleteToken } from '../../library/utils/networking/token'
 import { getCurrentUser } from '../profile/userSlice'
+import { Thunk } from '../../library/utils/networking/apiCall'
 
-const signIn = createAsyncThunk('auth/signIn', async (body, thunkAPI) => {
-  try {
-    const response = await fetch(
-      'https://easybusycamp.herokuapp.com/rest/' + 'user/authenticate',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      }
-    )
-
-    const data = await response.json()
-    console.log(data)
-
-    if (!response.ok) {
-      if (data.error) {
-        throw new Error(data.error)
-      } else {
-        throw new Error('OOOOPS')
-      }
-    }
-
-    await thunkAPI.dispatch(
+const signIn = Thunk({
+  key: 'auth/signIn',
+  method: 'POST',
+  endpointConstructor: () => 'user/authenticate',
+  afterSuccessResponse: async (dispatch, data) => {
+    console.log('sdfsdf')
+    await dispatch(
       getCurrentUser({
         userId: data.userId,
         isOrganizer: data.authorities[0] === 'ROLE_ORGANIZER',
         token: data.token,
       })
     )
-
-    return data
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message)
-  }
+  },
 })
 
 const initialState = {

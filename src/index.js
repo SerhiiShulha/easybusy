@@ -2,6 +2,7 @@ import './library/yupConfig'
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import 'react-toastify/dist/ReactToastify.css'
 import './library/styles/index.scss'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
